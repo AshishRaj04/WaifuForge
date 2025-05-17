@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="WaifuForge">
+    <title>WaifuForge</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&family=Rajdhani:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1>Welcome to WaifuForge</h1>
+        <p>Craft your dream characters with AI</p>
+    </header>
+    <main>
+        <section>
+            <button id="generateBtn">Generate Name</button>
+            <div id="result"></div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025. Ashish Raj.</p>
+    </footer>
+    <script>
+        document.getElementById('generateBtn').addEventListener('click', async () => {
+            try {
+                const response = await fetch('http://localhost:5000/api/generate-name', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({})
+                });
+                
+                const data = await response.json();
+                if (data.status === 'success') {
+                    document.getElementById('result').textContent = data.name;
+                } else {
+                    document.getElementById('result').textContent = 'Error generating name';
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('result').textContent = 'Error connecting to server';
+            }
+        });
+    </script>
+</body>
+</html>

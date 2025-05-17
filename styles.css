@@ -1,0 +1,185 @@
+:root {
+    --primary-color: #00fff2;
+    --secondary-color: #ff00ff;
+    --background-color: #0a0a16;
+    --card-bg: #151525;
+    --text-color: #ffffff;
+    --neon-shadow: 0 0 10px rgba(0, 255, 242, 0.5);
+    --glow-effect: 0 0 20px rgba(255, 0, 255, 0.3);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Rajdhani', 'Orbitron', sans-serif;
+}
+
+body {
+    background-color: var(--background-color);
+    background-image: 
+        linear-gradient(45deg, rgba(0, 255, 242, 0.05) 1%, transparent 1%),
+        linear-gradient(-45deg, rgba(255, 0, 255, 0.05) 1%, transparent 1%);
+    background-size: 3px 3px;
+    color: var(--text-color);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    background: linear-gradient(90deg, var(--card-bg), #1a1a30);
+    color: var(--text-color);
+    padding: 2rem;
+    text-align: center;
+    border-bottom: 2px solid var(--primary-color);
+    box-shadow: var(--neon-shadow);
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: var(--neon-shadow);
+}
+
+p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: var(--text-color);
+    opacity: 0.9;
+    text-shadow: 0 0 2px var(--primary-color);
+    margin: 0.5rem 0;
+    letter-spacing: 1px;
+}
+
+header p {
+    font-size: 1.4rem;
+    font-family: 'Orbitron', sans-serif;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-top: 0.5rem;
+}
+
+footer p {
+    font-size: 0.9rem;
+    opacity: 0.7;
+    font-family: 'Rajdhani', sans-serif;
+}
+
+main {
+    flex: 1;
+    padding: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+section {
+    background-color: var(--card-bg);
+    padding: 2rem;
+    border-radius: 15px;
+    border: 1px solid var(--primary-color);
+    box-shadow: var(--glow-effect);
+    text-align: center;
+    backdrop-filter: blur(10px);
+}
+
+#generateBtn {
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    color: var(--background-color);
+    border: none;
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: bold;
+    position: relative;
+    overflow: hidden;
+}
+
+#generateBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--neon-shadow);
+}
+
+#generateBtn::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transform: rotate(45deg);
+    animation: shine 3s infinite;
+}
+
+@keyframes shine {
+    0% { transform: translateX(-100%) rotate(45deg); }
+    100% { transform: translateX(100%) rotate(45deg); }
+}
+
+#result {
+    margin-top: 2rem;
+    padding: 1rem;
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    min-height: 60px;
+    text-shadow: 0 0 5px var(--primary-color);
+    border: 1px solid var(--primary-color);
+    border-radius: 10px;
+    background: rgba(0, 255, 242, 0.05);
+}
+
+footer {
+    background: var(--card-bg);
+    color: var(--text-color);
+    text-align: center;
+    padding: 1rem;
+    margin-top: auto;
+    border-top: 2px solid var(--primary-color);
+    box-shadow: var(--neon-shadow);
+}
+
+@media (max-width: 600px) {
+    header {
+        padding: 1rem;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    main {
+        padding: 1rem;
+    }
+
+    #generateBtn {
+        padding: 0.8rem 1.6rem;
+        font-size: 1rem;
+    }
+
+    #result {
+        font-size: 1.2rem;
+    }
+    p {
+        font-size: 1rem;
+    }
+    
+    header p {
+        font-size: 1.2rem;
+    }
+}

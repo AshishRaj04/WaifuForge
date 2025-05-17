@@ -1,0 +1,7 @@
+ipykernel
+tensorflow 
+numpy
+pandas
+matplotlib
+flask
+flask-cors
