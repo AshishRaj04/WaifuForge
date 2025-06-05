@@ -5,3 +5,4 @@ pandas
 matplotlib
 flask
 flask-cors
+opencv-python
