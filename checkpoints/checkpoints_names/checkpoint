@@ -1,0 +1,2 @@
+model_checkpoint_path: "anime_names_model.ckpt-1"
+all_model_checkpoint_paths: "anime_names_model.ckpt-1"

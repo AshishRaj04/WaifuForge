@@ -1,9 +1,6 @@
-# ------ IMPORTING LIBRARIES ------
-
 import numpy as np
 import matplotlib.pyplot as plt
 import os
-
 import tensorflow as tf
 from tensorflow.keras import (
     layers,
@@ -13,8 +10,6 @@ from tensorflow.keras import (
     metrics,
     optimizers,
 )
-
-# ------ CONSTANTS AND CONFIGURATION ------
 
 IMAGE_SIZE = 64
 CHANNELS = 3
@@ -28,10 +23,7 @@ EPOCHS = 1000
 CRITIC_STEPS = 5
 GP_WEIGHT = 50.0
 
-# ------ WEIGHTS DIRECTORY ------
-weights_path = "checkpoints/checkpoints_84/wgan.weights.h5"
-
-# ------ WGAN-GP MODEL ------
+weights_path = "checkpoints\checkpoints_faces\wgan.weights.h5"
 
 class WGANGP(models.Model):
     def __init__(self, critic, generator, latent_dim, critic_steps, gp_weight):
@@ -122,20 +114,15 @@ class WGANGP(models.Model):
 
         return {m.name: m.result() for m in self.metrics}
 
-
-# ------ FACE GENERATOR CLASS ------
-
 class FaceGenerator:
     def __init__(self, checkpoint_path=weights_path):
         self.Z_DIM = 128
         self.IMAGE_SIZE = 64
         self.CHANNELS = 3
 
-        # Initialize models
         self.generator = self._build_generator()
         self.critic = self._build_critic()
 
-        # Initialize WGAN-GP
         self.wgangp = WGANGP(
             critic=self.critic,
             generator=self.generator,
@@ -144,7 +131,6 @@ class FaceGenerator:
             gp_weight=50.0,
         )
 
-        # Build and load weights
         try:
             self.wgangp.build(
                 input_shape=(None, self.IMAGE_SIZE, self.IMAGE_SIZE, self.CHANNELS)
@@ -211,46 +197,32 @@ class FaceGenerator:
 
     @tf.function
     def generate_face(self, batch_size=1):
-        """
-        Generate faces using the trained generator
-        Args:
-            batch_size: Number of images to generate
-        Returns:
-            numpy array of generated images in uint8 format (0-255)
-        """
         try:
-            # Generate random noise
             noise = tf.random.normal(shape=(batch_size, self.Z_DIM))
-
-            # Generate images
             generated_images = self.wgangp.generator(noise, training=False)
-
             return generated_images
-
         except Exception as e:
             print(f"Error generating faces: {str(e)}")
             return None
 
-
-# Initialize the generator once and reuse
 try:
     face_generator = FaceGenerator()
 except Exception as e:
     print(f"Failed to initialize face generator: {str(e)}")
     face_generator = None
 
-
-# Generate a single face image
-generated_image = face_generator.generate_face(batch_size=1)
-# Display the generated image
-if generated_image is not None:
-    plt.imshow(generated_image[0])
-    plt.axis('off')
-    plt.show()
-# Save the generated image
-if generated_image is not None:
-    output_dir = "generated_faces"
-    os.makedirs(output_dir, exist_ok=True)
-    output_path = os.path.join(output_dir, "generated_face.png")
-    plt.imsave(output_path, generated_image[0])
-    print(f"Generated image saved to {output_path}")
+def generate_face():
+    if face_generator is None:
+        raise RuntimeError("Face generator not properly initialized")
+    
+    try:
+        generated_image = face_generator.generate_face(batch_size=1)
+        if generated_image is None:
+            raise RuntimeError("Failed to generate image")
+            
+        image = tf.cast((generated_image[0] * 127.5 + 127.5), tf.uint8)
+        return image.numpy()
+        
+    except Exception as e:
+        print(f"Error in generate_face: {str(e)}")
+        return None

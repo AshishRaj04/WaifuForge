@@ -101,7 +101,7 @@ def load_parameters():
             running_mean_03=running_mean_03, running_std_03=running_std_03
         )
         
-        latest_checkpoint = tf.train.latest_checkpoint("./checkpoints/checkpoints_84")
+        latest_checkpoint = tf.train.latest_checkpoint("./checkpoints/checkpoints_names")
         if latest_checkpoint is None:
             raise FileNotFoundError("No checkpoint found")
             
