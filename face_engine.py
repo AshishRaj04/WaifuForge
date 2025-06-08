@@ -23,6 +23,8 @@ EPOCHS = 1000
 CRITIC_STEPS = 5
 GP_WEIGHT = 50.0
 
+# weights_path = "checkpoints\checkpoints_faces\wgan.weightsfinal.h5"
+
 weights_path = "checkpoints\checkpoints_faces\wgan.weights.h5"
 
 class WGANGP(models.Model):
