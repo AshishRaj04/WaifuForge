@@ -2,7 +2,7 @@
 
 WaifuForge is an AI-powered anime character generator that creates unique character faces and names. Built with WGAN-GP architecture and Flask, it features a cyberpunk-themed interface for an immersive generation experience.
 
-![Anime Character Generated at the 71th Epoch of Traning](samples\generated_img\Generated Images at Epoch_ 071.png)
+![Anime Character Generated at the 71th Epoch of Traning](https://github.com/AshishRaj04/WaifuForge/blob/main/samples/generated_img/Generated%20Images%20at%20Epoch_%20071.png)
 
 ## Features
 
